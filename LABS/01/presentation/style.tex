@@ -1,0 +1,72 @@
+\usepackage[english]{babel}
+\usepackage{xmpmulti}
+\usepackage{amsmath}
+%\usepackage[MeX]{polski}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+%\usepackage[OT4]{polski}
+\usepackage{graphics}
+\usepackage{relsize}
+\usepackage{listings}
+
+\usepackage{pgfpages}
+\hypersetup{pdfpagemode=FullScreen}
+
+\mode<presentation>
+%{
+%\definecolor{frameheadforeground}{RGB}{169,33,62}
+%\definecolor{frameheadbackground}{RGB}{255,255,255}
+%\setbeamercolor{structure}{fg=frameheadforeground,bg=frameheadbackground}
+%\setbeamercolor{headline}{parent=palette quaternary}
+%\setbeamercolor{footline}{parent=palette primary}
+%\setbeamercolor*{palette quaternary}{fg=black,bg=white}
+%\usetheme{Boadilla}
+\usetheme{Singapore}
+%usetheme{Hannover}
+%\usefonttheme[mathonly]{serif}
+%\usepackage{times}
+%}
+
+\logo{\includegraphics[height=0.5cm]{img/wne_ang.pdf}} %change here. I used an eps file logo, you can use jpg or other format
+
+\mode<handout>
+{
+ \usetheme{Boadilla}
+ \pgfpagesuselayout{4 on 1}[a4paper,landscape,border, shrink=2.5mm]
+}
+
+
+
+\setbeamertemplate{caption}[numbered] 
+
+\setbeamertemplate{footline}[frame number] 
+\setbeamertemplate{navigation symbols}{} %no nav symbols
+
+
+%definicja zrodla
+\newcommand{\source}[1]{\begin{flushleft}
+\textsf{{\tiny �r�d�o: #1}}
+\end{flushleft}
+} 
+
+\newcommand{\var}{\textrm{Var}}
+\newcommand{\cov}{\textrm{Cov}}
+\newcommand{\corr}{\textrm{Corr}}
+
+
+%example
+\newcommand{\EXample}[1]{\colorbox{PaleGreen}
+{Example #1}
+}
+%exercise
+\newcommand{\EXercise}[1]{\colorbox{yellow}
+{Exercise #1}
+}
+
+% 20110304 wstawilem to rozwiazanie, bo wywalal mi nastepujacy blad
+%Undefined control sequence:
+%\beamer@frameslide ...duration=}\thispdfpagelabel
+%{\insertframenumber}\xda.....
+\providecommand\thispdfpagelabel[1]{}
+
+

@@ -1,0 +1,159 @@
+\begin{frame}
+    \frametitle{Grading policy in the Spring Term}
+    \begin{itemize}
+        \item final exam 30 pts.
+        \item home taken project with oral defence 70 pts.
+        \item 100 pts. to collect in total
+        \item minimum requirement to pass: 
+            \begin{enumerate}
+                \item at least 60 pts. in total 
+                \item and at least 15 pts. from the final exam,
+                \item and at least 35 pts. from the project
+            \end{enumerate}
+        \item Attendance is mandatory, max three unexcused absences are allowed. 
+        \item The minimum threshold will be lowered to 50 pts. for active students.
+        \item Additional homeworks, exercices, etc. are not mandatory, but can help later to gain additional points for credit.
+    \end{itemize}
+\end{frame}
+
+
+\begin{frame}
+    \frametitle{Literature}
+	\begin{itemize}
+		\item Joshi (2008) C++ Design Patterns and Derivatives Pricing
+	\end{itemize}
+\end{frame}
+
+
+
+\begin{frame}
+	\frametitle{Technical elements of code}
+Today we will use:
+\begin{itemize}
+	\item pointers and address references
+	\item variables of \lstinline!enum! type
+	\item \lstinline!switch! case structure
+	\item classes, with their members (variables) and methods (functions)
+	\item constructors for classes
+	\item functors, ie. classes that behave like functions
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Key concepts for today}
+\begin{itemize}
+    \item We'll look at one way of using a class to encapsulate the notion of
+an option pay-off.
+\item  Using a pay-off class allows us to add extra forms of pay-offs without modifying
+our Monte Carlo routine.
+\item By overloading \lstinline!operator()! we can make an object look and behave like a function.
+\item \lstinline!const! enforces extra discipline by forcing the coder to be aware of which code is allowed to change things and which code cannot.
+\item \lstinline!const! code can run faster.
+\item The \colorbox{yellow}{\textbf{open-closed} principle} says that code should be open for extension but closed for modification.
+\item Private data helps us to separate interface from implementation.
+\end{itemize}
+\end{frame}
+
+	
+\begin{frame}[allowframebreaks]
+	\frametitle{Stock price motion in Monte Carlo methods}
+Price of the underlying asset is described by:
+\begin{equation}
+dS_t=\mu S_tdt+\sigma S_t dW_t
+\end{equation}
+and a continuously compounding risk-free rate $r$. 
+
+From the BS we know that the price of a vanilla option, with expiry $T$
+and pay-off $f$, is equal to
+\begin{equation}
+e^{-rT}\mathbb{E}(f(S_T))
+\end{equation}
+where the expectation is calculated with respect to the risk-neutral process
+\begin{equation}
+\label{eq:ds}
+dS_t = rS_tdt + \sigma S_tdW_t
+\end{equation}
+
+\framebreak
+By passing to the log and using Ito's lemma we can solve Eq. (\ref{eq:ds}) 
+\begin{equation}
+d \log S_t = \biggl(r - \frac{1}{2}\sigma^2\biggl) dt + \sigma dW_t
+\end{equation}
+which has the solution
+\begin{equation}
+\log S_t = \log S_0 + \biggl(r - \frac{1}{2}\sigma^2\biggl) t + \sigma W_t
+\end{equation}
+
+\framebreak
+Since $W_t$ is a Brownian motion, $W_T$ is distributed as $N(0,T)$ and we can write
+\begin{equation}
+W_T = \sqrt{T} N(0,1)
+\end{equation}
+which results in
+\begin{equation}
+\log S_T = \log S_0 + \Big(r - \frac{1}{2}\sigma^2\Big) T + \sigma\sqrt{T} N(0,1)
+\end{equation}
+or equivalently
+\begin{equation}
+S_T = S_0e^{(r - \frac{1}{2}\sigma^2)T + \sigma\sqrt{T} N(0,1)}
+\end{equation}
+The price of a vanilla option is therefore given by
+\begin{equation}
+e^{-rT}\mathbb{E}\big(f(S_0e^{(r - \frac{1}{2}\sigma^2)T + \sigma\sqrt{T} N(0,1)})\big)
+\end{equation}
+
+\framebreak
+This expectation is approximated by Monte Carlo simulation. 
+
+From the law of large numbers we know that if $Y_j$ are a sequence of identically distributed independent random variables, then with probability 1 the sequence
+\begin{equation}
+\frac{1}{N}\sum_{j=1}^NY_j
+\end{equation}
+converges to $\mathbb{E}(Y)$.
+
+\framebreak
+The algorithm of Monte Carlo method
+\begin{enumerate}
+\item Draw a random variable $x \sim N(0,1)$ and compute
+\begin{equation}
+f(S_0e^{(r - \frac{1}{2}\sigma^2)T + \sigma\sqrt{T}x})
+\end{equation}
+where for European call $f (S) = (S - K)_{+}$. 
+\item Repeat this possibly many times and calculate the average. 
+\item Multiply this average by $e^{-rT}$.
+\end{enumerate} 
+\end{frame}
+
+
+\begin{frame}[allowframebreaks, fragile]
+    \frametitle{Exercises}
+    \begin{enumerate}
+        \item Modify \texttt{project01} to obtain price of:
+            \begin{itemize}
+                \item European put price,
+                \item digital option,
+                \item double digital option.
+            \end{itemize}
+        \item Set a random-like seed by adding the following code 
+            at the beginning of \lstinline!main()!:\\
+            \lstinline!  srand(time(NULL));!\\ 
+          Do not forget to \lstinline!#include! two external header files:
+            \lstinline!  #include <cstdlib>!\\
+            \lstinline!  #include <ctime>!\\
+          After this, every time you run a simulation you should get 
+          different approximation of the theoretical option price. 
+          Is the precision of our option prices acceptable?
+       \item In \texttt{project02}, modify the pay-off class so that it can handle squared power options, 
+            with the payout $\max^2[S_T-K,0]$ for the call and $\max^2[K-S_T,0]$ for the put. 
+        \item In \texttt{project02}, modify the pay-off class so that it can handle squared power options, 
+            with the payout $\max[S_T^2-K^2,0]$ for the call and $\max[K^2-S_T^2,0]$ for the put. 
+        \item In \texttt{project02}, modify the pay-off class so that it can handle digital options.
+        \item In \texttt{project02}, modify the pay-off class so that it can handle double digital options.
+    \end{enumerate}
+\end{frame}
+
+
+
+
+
+

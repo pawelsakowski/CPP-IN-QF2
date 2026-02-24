@@ -16,3 +16,6 @@ ADM/
 *.nav
 *.snm
 *.fls
+*.tcp
+*main
+*solved

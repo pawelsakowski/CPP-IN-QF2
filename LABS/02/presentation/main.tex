@@ -1,0 +1,83 @@
+\documentclass[
+english,
+xcolor={svgnames,pdftex,table},
+mathserif,
+11pt,
+hyperref={pdfpagelabels=false},
+%handout,
+presentation,
+]{beamer}
+% ponizej opcja, zeby pdflatex honorowal grafike w PDFach w wersji 1.5
+%\pdfminorversion=6
+
+\input{style.tex}
+
+
+\title[C++ in QF]{C++ in Quantitative Finance}
+\subtitle{Labs \#2 \newline Inheritance and virtual functions}
+
+\author[Paweł Sakowski]{Paweł Sakowski}
+
+\institute[WNE UW]{
+ % Wydział Nauk Ekonomicznych\\
+ % Uniwersytetu Warszawskiego\
+}  
+\date{}
+\titlegraphic{\includegraphics[width=9cm]{img/wne_ang.pdf}}  
+\date{Spring 2026}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+\selectlanguage{english}
+\lstset{
+	language=[Visual]Basic,
+	keywordstyle=\bfseries\ttfamily\color[rgb]{0,0,1},
+	identifierstyle=\ttfamily,
+	commentstyle=\color[rgb]{0.133,0.545,0.133},
+	stringstyle=\ttfamily\color[rgb]{0.627,0.126,0.941},
+	showstringspaces=false,
+	basicstyle=\small,
+	numberstyle=\footnotesize,
+	numbers=none, %=left
+	stepnumber=1,
+	numbersep=10pt,
+	tabsize=2,
+	breaklines=true,
+	prebreak = \raisebox{0ex}[0ex][0ex]{\ensuremath{\hookleftarrow}},
+	breakatwhitespace=false,
+	aboveskip={1.5\baselineskip},
+  columns=fixed,
+  upquote=true,
+  extendedchars=true,
+% frame=single,
+% backgroundcolor=\color{lbcolor},
+}
+\begin{frame}
+\titlepage
+\end{frame}
+
+%\begin{frame}%[allowframebreaks]
+%{Plan prezentacji}
+%  \tableofcontents
+%\end{frame}
+
+\input{cpp02.tex}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+	\frametitle{}
+	\begin{block}{\begin{center}\huge Thank you!\end{center}}
+\begin{center}
+\vspace{2mm}
+Paweł Sakowski\\
+\texttt{sakowski@wne.uw.edu.pl}\\
+\vspace{2mm}
+\end{center}
+	\end{block}
+\end{frame}
+
+\end{document}
+

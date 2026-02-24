@@ -1,0 +1,104 @@
+
+\begin{frame}
+	\frametitle{Virtual functions}
+
+	\begin{itemize}
+		\item The main method in our MC project, \lstinline!operator()! is an example of virtual function.
+\item A virtual function is a function whose address is bound at \emph{runtime} instead of at \emph{compile time}.
+\item In the code, where a \lstinline!PayOff! object has been specified, the code when running will encounter an object of a class that has been inherited from \lstinline!PayOff!.
+\item It will then decide what function to call on the basis of what type that object is.
+\item If the object is of type \lstinline!PayOffCall!, it calls the \lstinline!operator()! method of \lstinline!PayOffCall!, and if it is of type \lstinline!PayOffPut!, it uses the method from the \lstinline!PayOffPut! class and so on.
+	\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+	\frametitle{Pure virtual functions}
+
+	\begin{itemize}
+		\item As well as being a virtual function, the \lstinline!operator()! method has an \lstinline!=0! after it.
+	\item This means that it is a pure virtual function.
+\item A pure virtual function has the property that it need not be defined in the base class and must be defined in an
+inherited class.
+\item Thus by putting \lstinline!=0! we are saying that the class is incomplete, and
+that certain aspects of its interface must be programmed in an inherited class.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Passing the inherited objects by reference}
+
+	\begin{itemize}
+		\item
+In our Monte Carlo routine, we have a parameter of type \lstinline!const PayOff&! called
+\lstinline!thePayOff!.
+\item This means that the parameter is being passed by reference rather
+than by value.
+\item The routine therefore works off the original object passed in.
+\item If we had not used the '\lstinline!&!' it would copy the object: it would be passed by value not by reference.
+\item When the object is passed by reference, the function is passed the address of the object in memory, no copying occurs and the object's state is precisely as it was outside.
+\item However, if the object's state does change inside the routine it will also
+change outside which may not be what we want.
+\item We therefore include the \lstinline!const! to indicate that the routine cannot do anything which may change the state of the object.
+\item The function can 'look but not touch'.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Key concepts for today}
+\begin{itemize}
+    \item Inheritance can be used to implement a PayOff class that is closed for modification but open for extension.
+\item Inheritance expresses 'is a' relationships.
+\item A virtual function is bound at \emph{runtime} instead of at \emph{compile time}.
+\item We cannot have objects from classes with pure virtual functions.
+\item We have to pass inherited class objects by reference if we do not wish to change
+the virtual functions.
+\item Virtual functions are implemented via a table of function pointers.
+\item If a class has a pure virtual functions then it should have a virtual destructor.
+\end{itemize}
+\end{frame}
+
+\begin{frame}[allowframebreaks]
+    \frametitle{Exercises}
+    \begin{enumerate}
+        \item Write additional subclass called PayOffDigital inheriting after PayOff class so that it can handle digital options.
+        \item Write additional subclass called PayOffDoubleDigital inheriting after PayOff class so that it can handle double digital options.
+        \item Write additional subclass called PayOffPower1 inheriting after PayOff class so that it can handle squared power options with the payout $\max^2[S_T-K,0]$ for the call and $\max^2[K-S_T,0]$ for the put. 
+        \item Write additional subclass called PayOffPower2 inheriting after PayOff class so that it handle squared power options with the payout $\max[S_T^2-K^2,0]$ for the call and $\max[K^2-S_T^2,0]$ for the put. 
+
+            \framebreak
+
+            \textbf{Additional exercises based on \texttt{struct}ures}
+        \item 
+            \begin{enumerate}[a)]
+                \item Create a structure to hold information about an option:
+                    \begin{itemize}
+                        \item strike
+                        \item spot
+                        \item risk-free rate
+                        \item volatility
+                        \item expiry
+                        \item type (call or put)
+                    \end{itemize}
+                \item Create and instance of the proposed structure. 
+                \item Assign specific values to the members of the structure.
+                \item \label{function}Define and implement a function that will accept the structure as argument and print out all characteristics of the option.
+                \item Create a pointer to the structure. What is its address?
+                \item Rewrite function from \ref{function}) so that it accepts the structure (ie. the object) passed: 1) by reference using the pointer, and 2) by reference using the structure (ie. the object).
+    \end{enumerate}
+
+        \item Define and implement a function that will take as an argument the structure above and return theoretical price of European call/put option using the Black-Scholes formula. The structure with option description should be passed:\\
+            1) by value,\\
+            2) by reference using the pointer,\\
+            3) by reference using the object.\\
+            You can use following code for the Black-Scholes function: \url{https://gist.github.com/pawelsakowski/9502742}\\
+            For this you will need: \url{https://gist.github.com/pawelsakowski/9502821}
+        \item As in previous exercise but this time function returns aproximation 
+        of the theoretical price for European call and put obtained by 
+        the Monte Carlo experiment. Does the approximation converge to the 
+        BS price? You may use approach we took in previous semester 
+        (takes more time, as we generate whole paths for underlying prices) 
+        or in cpp01.
+\end{enumerate}
+\end{frame}
+

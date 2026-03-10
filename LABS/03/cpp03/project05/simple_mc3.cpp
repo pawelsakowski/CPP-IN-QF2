@@ -4,14 +4,14 @@
 
 using namespace std;
 
-double SimpleMonteCarlo3(VanillaOption theOption,
+double SimpleMonteCarlo3(VanillaOption the_option,
 						 double spot,
 						 double vol,
 						 double r,
 						 unsigned long number_of_paths)
 {
 
-	double expiry = theOption.get_expiry();
+	double expiry = the_option.get_expiry();
 
 	double variance = vol * vol * expiry;
 	double rootVariance = sqrt(variance);
@@ -25,7 +25,7 @@ double SimpleMonteCarlo3(VanillaOption theOption,
 	{
 		double thisGaussian = get_one_gaussian_by_box_muller();
 		thisspot = movedspot * exp(rootVariance * thisGaussian);
-		double thisPayOff = theOption.get_option_payoff(thisspot);
+		double thisPayOff = the_option.get_option_payoff(thisspot);
 		runningSum += thisPayOff;
 	}
 

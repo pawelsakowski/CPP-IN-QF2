@@ -1,16 +1,16 @@
 #include "double_digital.h"
 
-PayOffDoubleDigital::PayOffDoubleDigital(double lowerLevel_, double upperLevel_)
+PayOffDoubleDigital::PayOffDoubleDigital(double lower_level_, double upper_level_)
 {
-    lowerLevel = lowerLevel_;
-    upperLevel = upperLevel_;
+    lower_level = lower_level_;
+    upper_level = upper_level_;
 }
 
 double PayOffDoubleDigital::operator()(double spot) const
 {
-    if (spot <= lowerLevel)
+    if (spot <= lower_level)
         return 0;
-    if (spot >= upperLevel)
+    if (spot >= upper_level)
         return 0;
     return 1;
 }

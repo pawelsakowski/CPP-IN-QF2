@@ -6,13 +6,13 @@
 class PayOffDoubleDigital : public PayOff
 {
 public:
-    PayOffDoubleDigital(double lowerLevel_, double upperLevel_);
+    PayOffDoubleDigital(double lower_level_, double upper_level_);
     virtual double operator()(double spot) const;
     virtual ~PayOffDoubleDigital() {};
 
 private:
-    double lowerLevel;
-    double upperLevel;
+    double lower_level;
+    double upper_level;
 };
 
 #endif

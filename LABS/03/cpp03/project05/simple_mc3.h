@@ -3,10 +3,10 @@
 
 #include "vanilla1.h"
 
-double SimpleMonteCarlo3(VanillaOption theOption,
+double SimpleMonteCarlo3(VanillaOption the_option,
 						 double spot,
 						 double vol,
 						 double r,
-						 unsigned long numberOfPaths);
+						 unsigned long number_of_paths);
 
 #endif

@@ -4,7 +4,8 @@
 #define PARAMETERS_H
 
 // This is a base class.
-// All its methods are abstract, so this is why we refer to it as an abstract class.
+// All its methods are abstract, so this is why we refer to it
+// as an abstract class.
 class ParametersInner
 {
 public:
@@ -12,13 +13,15 @@ public:
     virtual ParametersInner *clone() const = 0;
     virtual double get_integral(double time1, double time2) const = 0;
     virtual double get_integral_square(double time1, double time2) const = 0;
+    virtual ~ParametersInner() {};
 
 private:
 };
 
 // This is a BRIDGING CLASS!
-// This class handles the interaction without the outside world,
-// and the memory handling. Its only data member is a pointer to an abstract class (ParametersInner).
+// This class handles the interaction without the outside world
+// and the memory handling.
+// Its only data member is a pointer to an abstract class (ParametersInner).
 class Parameters
 {
 
@@ -26,7 +29,7 @@ public:
     Parameters(const ParametersInner &innerObject);
     Parameters(const Parameters &original);
     Parameters &operator=(const Parameters &original);
-    virtual ~Parameters();
+    ~Parameters();
 
     inline double get_integral(double time1, double time2) const;
     inline double get_integral_square(double time1, double time2) const;

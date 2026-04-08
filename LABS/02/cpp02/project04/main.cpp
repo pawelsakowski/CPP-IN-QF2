@@ -1,5 +1,6 @@
 #include "simple_mc2.h"
 #include <iostream>
+#include <memory>
 using namespace std;
 
 int main()
@@ -41,7 +42,7 @@ int main()
 	// Now, we use an alternative solution: refering to the yet-non-existing object via a pointer.
 
 	// First, create a pointer of the type PayOff* (the base class!)
-	PayOff *payOffPtr;
+	std::unique_ptr<PayOff> payOffPtr;
 
 	// Now, it seems that the natural solution is to apply:
 
@@ -61,9 +62,9 @@ int main()
 	// be released until we explicitly say so (by using later 'delete' operator).
 
 	if (option_type == 0)
-		payOffPtr = new PayOffCall(strike);
+		payOffPtr = std::make_unique<PayOffCall>(strike);
 	else
-		payOffPtr = new PayOffPut(strike);
+		payOffPtr = std::make_unique<PayOffPut>(strike);
 
 	// finally we can call the MC function dereferencing the pointer in the first argument.
 	double result = simple_monte_carlo2(*payOffPtr,
@@ -80,7 +81,7 @@ int main()
 	// If we forget this, the memory will never be freed up, and
 	// will slowly leak away until program crashes.
 	// Always use 'delete' after 'new'!
-	delete payOffPtr;
+	// delete payOff
 
 	// When we call delete, it first calls the destructor of the object.
 	// If the destructor is not virtual then it will call the base class destructor.

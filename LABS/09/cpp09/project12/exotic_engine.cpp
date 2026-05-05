@@ -1,5 +1,3 @@
-// ExoticEngine.cpp
-
 #include <cmath>
 #include "exotic_engine.h"
 
@@ -25,14 +23,14 @@ void ExoticEngine::do_simulation(StatisticsMC &the_gatherer, unsigned long numbe
     MJArray spot_values(the_product->get_look_at_times().size());
 
     these_cash_flows.resize(the_product->max_number_of_cash_flows());
-    double this_value;
+    double this_payoff;
 
     // this is main Monte Carlo loop
     for (unsigned long i = 0; i < number_of_paths; ++i)
     {
-        get_one_path(spot_values);                // simulates the path (this method is abstract)
-        this_value = do_one_path(spot_values);    // calculate the discounted cash flows
-        the_gatherer.dump_one_result(this_value); // passes the discounted cash flows to the gatherer
+        get_one_path(spot_values);                 // simulates the path (this method is abstract)
+        this_payoff = do_one_path(spot_values);    // calculate the discounted cash flows
+        the_gatherer.dump_one_result(this_payoff); // passes the discounted cash flows to the gatherer
     }
 
     return;
@@ -45,7 +43,7 @@ double ExoticEngine::do_one_path(const MJArray &spot_values) const
                                                          these_cash_flows);
     double value = 0.0;
 
-    // discounting of cashflows (payoff or payoffs for a single path)
+    // discounting of cashflows (a payoff or payoffs for a single path)
     // and summing them together
     for (unsigned long i = 0; i < number_flows; ++i)
         value += these_cash_flows[i].amount * discounts[these_cash_flows[i].time_index];

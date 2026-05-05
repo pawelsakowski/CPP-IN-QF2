@@ -1,5 +1,3 @@
-// ExoticBSEngine.h
-
 #ifndef EXOTIC_BS_ENGINE_H
 #define EXOTIC_BS_ENGINE_H
 

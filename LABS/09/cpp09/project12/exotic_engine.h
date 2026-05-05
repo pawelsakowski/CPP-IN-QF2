@@ -1,5 +1,3 @@
-// ExoticEngine.h
-
 #ifndef EXOTIC_ENGINE_H
 #define EXOTIC_ENGINE_H
 

@@ -1,5 +1,3 @@
-// ExoticBSEngine.cpp
-
 #include <cmath>
 #include "exotic_bs_engine.h"
 
